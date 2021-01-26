@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.canghai.blog.biz.entity.User;
 import com.canghai.blog.biz.mapper.UserMapper;
 import com.canghai.blog.common.utils.Md5Util;
-import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
