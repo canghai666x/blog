@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.canghai.blog.biz.mapper.TagMapper">
+    <select id="findByArticleId" parameterType="long" resultMap="com.canghai.blog.biz.entity.Tag">
+        SELECT * FROM tag t,article a,article_tag at
+        WHERE t.id=at.tag_id AND a.id = at.article_id AND a.id = #{id}
+    </select>
+
+</mapper>
