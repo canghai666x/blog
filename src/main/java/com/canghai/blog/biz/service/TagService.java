@@ -53,9 +53,14 @@ public class TagService {
         tagmapper.updateById(tag);
     }
 
+    @Transactional
     public void delete(Long id){
         tagmapper.deleteById(id);
         //删除相关联的
         articleTagService.deleteByArticleId(id);
+    }
+
+    public List<Tag> findByArticleId(Long id){
+        return tagmapper.findByArticleId(id);
     }
 }
