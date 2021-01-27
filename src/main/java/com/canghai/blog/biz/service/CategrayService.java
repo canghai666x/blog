@@ -18,6 +18,9 @@ public class CategrayService {
     @Autowired
     private CategoryMapper categoryMapper;
 
+    @Autowired
+    private ArticleCatrgoryService articleCatrgoryService;
+
     public IPage<Category> list(Category category, QueryPage queryPage) {
         IPage<Category> page = new Page<>(queryPage.getPage(), queryPage.getLimit());
         LambdaQueryWrapper<Category> queryWrapper = new LambdaQueryWrapper<>();
@@ -31,6 +34,12 @@ public class CategrayService {
         queryWrapper.like(StringUtils.isNotBlank(category.getName()), Category::getName, category.getName());
         queryWrapper.orderByDesc(Category::getId);
         return categoryMapper.selectList(queryWrapper);
+    }
+
+    public Category findById(Category category){
+        LambdaQueryWrapper<Category> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Category::getId,category.getId());
+        return categoryMapper.selectOne(queryWrapper);
     }
 
     @Transactional
@@ -54,7 +63,7 @@ public class CategrayService {
     public void delete(Long id){
         categoryMapper.deleteById(id);
         //删除与文章相关的Category
-
+        articleCatrgoryService.deleteByCategoryId(id);
     }
 
     public List<Category> findByArticleId(Long id){

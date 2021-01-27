@@ -45,7 +45,7 @@ public class TagService {
     private boolean exist(Tag tag){
         LambdaQueryWrapper<Tag> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(Tag::getName,tag.getName());
-        return tagmapper.selectList(queryWrapper).size()>0;
+        return tagmapper.selectList(queryWrapper).size() > 0;
     }
 
     @Transactional

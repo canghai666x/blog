@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="">
+    <select id="findByCategory" parameterType="long" resultType="com.canghai.blog.biz.entity.Article">
+        SELECT a.id, a.title, a.author,a.create_time
+        FROM article a,
+             category c,
+             article_category ac,
+        WHERE
+            c.id=#{id}
+        AND c.id=ac.article_id,
+        AND a.id=ac.article_id;
+    </select>
+    <select id="findByTag" parameterType="long" resultType="com.canghai.blog.biz.entity.Article">
+        SELECT a.id, a.title, a.author,a.create_time
+        FROM tag t,
+             category c,
+             article_tag at,
+        WHERE t.id=#{id}
+        AND   t.id=ac.article_id,
+        AND   t.id=ac.article_id;
+    </select>
+</mapper>
