@@ -21,7 +21,7 @@ public class ArticleService {
     private ArticleMapper articleMapper;
 
     @Autowired
-    private CategrayService categrayService;
+    private CategoryService categoryService;
     @Autowired
     private TagService tagService;
     @Autowired
@@ -29,10 +29,10 @@ public class ArticleService {
     @Autowired
     private ArticleTagService articleTagService;
 
-    List<Article> findByCategory(Long id){
+    public List<Article> findByCategory(Long id){
         return articleMapper.findByCateGory(id);
     }
-    List<Article> findByTag(Long id){
+    public List<Article> findByTag(Long id){
         return articleMapper.findByTag(id);
     }
 
@@ -50,7 +50,7 @@ public class ArticleService {
     private void findInit(List<Article> records) {
         if (!records.isEmpty()){
             records.forEach(article -> {
-                List<Category> categoryList = categrayService.findByArticleId(article.getId());
+                List<Category> categoryList = categoryService.findByArticleId(article.getId());
                 if (categoryList.size()>0){
                     article.setCategory(categoryList.get(0));
                 }
@@ -82,7 +82,7 @@ public class ArticleService {
         if (article.getId()!=null){
             if (article.getCategory()!=null){
                 articleCatrgoryService.deleteByCategoryId(article.getId());
-                Category category = categrayService.findById(article.getCategory());
+                Category category = categoryService.findById(article.getCategory());
                 if (category!=null){
                     articleCatrgoryService.add(new ArticleCategory(article.getId(),category.getId()));
                 }

@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class CategrayService {
+public class CategoryService {
     @Autowired
     private CategoryMapper categoryMapper;
 
@@ -40,6 +40,10 @@ public class CategrayService {
         LambdaQueryWrapper<Category> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(Category::getId,category.getId());
         return categoryMapper.selectOne(queryWrapper);
+    }
+
+    public Category getById(Long id){
+        return categoryMapper.selectById(id);
     }
 
     @Transactional

@@ -20,12 +20,12 @@ public class TagService {
     @Autowired
     private ArticleTagService articleTagService;
 
-    public List<Tag> list(Tag tag, QueryPage queryPage){
+    public IPage<Tag> list(Tag tag, QueryPage queryPage){
         IPage<Tag> page = new Page<>(queryPage.getPage(), queryPage.getLimit());
         LambdaQueryWrapper<Tag> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.like(StringUtils.isNotBlank(tag.getName()),Tag::getName,tag.getName());
         queryWrapper.orderByDesc(Tag::getId);
-        return tagmapper.selectList(queryWrapper);
+        return tagmapper.selectPage(page,queryWrapper);
     }
 
     public List<Tag> list(Tag tag){
@@ -33,6 +33,10 @@ public class TagService {
         queryWrapper.like(StringUtils.isNotBlank(tag.getName()),Tag::getName,tag.getName());
         queryWrapper.orderByDesc(Tag::getId);
         return tagmapper.selectList(queryWrapper);
+    }
+
+    public Tag getById(Long id){
+        return tagmapper.selectById(id);
     }
 
     @Transactional
