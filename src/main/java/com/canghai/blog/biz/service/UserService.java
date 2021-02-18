@@ -51,4 +51,8 @@ public class UserService {
     public void delete(Long id){
         userMapper.deleteById(id);
     }
+
+    public User findById(Long id) {
+        return userMapper.selectById(id);
+    }
 }

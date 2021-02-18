@@ -2,6 +2,7 @@ package com.canghai.blog.biz.controller;
 
 import com.canghai.blog.biz.entity.Comment;
 import com.canghai.blog.biz.service.CommentService;
+import com.canghai.blog.common.annotation.Log;
 import com.canghai.blog.common.common.BaseController;
 import com.canghai.blog.common.constants.CommonConstant;
 import com.canghai.blog.common.utils.GeneralResponse;
@@ -38,6 +39,7 @@ public class CommentController extends BaseController {
     }
 
     @PostMapping
+    @Log("添加评论")
     public GeneralResponse save(@RequestBody Comment comment, HttpServletRequest request){
         try {
             String ip= IPUtil.getIpAddr(request);
@@ -58,6 +60,7 @@ public class CommentController extends BaseController {
     }
 
     @DeleteMapping("/{id}")
+    @Log("删除评论")
     public GeneralResponse delete(@PathVariable Long id){
         try {
             commentService.delete(id);

@@ -2,6 +2,7 @@ package com.canghai.blog.biz.controller;
 
 import com.canghai.blog.biz.entity.Category;
 import com.canghai.blog.biz.service.CategoryService;
+import com.canghai.blog.common.annotation.Log;
 import com.canghai.blog.common.common.BaseController;
 import com.canghai.blog.common.constants.CommonConstant;
 import com.canghai.blog.common.utils.GeneralResponse;
@@ -34,18 +35,21 @@ public class CategoryController extends BaseController {
     }
 
     @PostMapping
+    @Log("添加分类")
     public GeneralResponse save(@RequestBody Category category){
         categoryService.add(category);
         return new GeneralResponse<>();
     }
 
     @PutMapping
+    @Log("更新分类")
     public GeneralResponse update(@RequestBody Category category){
         categoryService.update(category);
         return new GeneralResponse<>();
     }
 
     @DeleteMapping("/{id}")
+    @Log("删除分类")
     public GeneralResponse delete(@PathVariable Long id){
         categoryService.delete(id);
         return new GeneralResponse<>();
