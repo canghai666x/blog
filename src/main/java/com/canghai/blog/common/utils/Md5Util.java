@@ -16,7 +16,7 @@ public class Md5Util {
     private static final int HASH_ITERATIONS=2;
 
     public String encryptPassword(String password){
-        ShiroProperties shiro = blogProperties.getShiroProperties();
+        ShiroProperties shiro = blogProperties.getShiro();
         if (null==password)
             return null;
         return new SimpleHash(ALGORITHM_NAME, StringUtils.lowerCase(password),shiro.getCipherKey(),HASH_ITERATIONS).toHex();

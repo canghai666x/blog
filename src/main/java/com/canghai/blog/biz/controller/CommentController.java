@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
 @RestController
-@RequestMapping(CommonConstant.BASE_API+"/admin")
+@RequestMapping(CommonConstant.BASE_API+"/comment")
 public class CommentController extends BaseController {
 
     @Autowired

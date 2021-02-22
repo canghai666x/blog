@@ -5,5 +5,5 @@ public interface CommonConstant {
     int ERROR = 500;
     String USER_AGENT = "User-Agent";
     String AUTHORIZATION="Authorization";
-    String BASE_API = "admin";
+    String BASE_API = "/admin";
 }

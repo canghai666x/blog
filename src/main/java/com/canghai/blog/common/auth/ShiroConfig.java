@@ -5,7 +5,6 @@ import com.canghai.blog.common.properties.ShiroProperties;
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.codec.Base64;
-import org.apache.shiro.mgt.DefaultSecurityManager;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.SessionListener;
 import org.apache.shiro.session.mgt.SessionManager;
@@ -29,7 +28,7 @@ public class ShiroConfig {
 
     @Bean
     public ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager){
-        ShiroProperties shiroProperties = blogProperties.getShiroProperties();
+        ShiroProperties shiroProperties = blogProperties.getShiro();
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         shiroFilterFactoryBean.setLoginUrl(shiroProperties.getLoginUrl());
@@ -48,7 +47,7 @@ public class ShiroConfig {
     public SecurityManager securityManager(AuthRealm authRealm){
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(authRealm);
-        securityManager.setSessionManager(securityManager);
+        securityManager.setSessionManager(sessionManager());
         securityManager.setCacheManager(cacheManager());
         securityManager.setRememberMeManager(rememberMeManager());
         return securityManager;
@@ -56,7 +55,7 @@ public class ShiroConfig {
 
     @Bean
     public SimpleCookie rememberMeCookie(){
-        ShiroProperties shiroProperties = blogProperties.getShiroProperties();
+        ShiroProperties shiroProperties = blogProperties.getShiro();
         SimpleCookie simpleCookie = new SimpleCookie("remember");
         simpleCookie.setMaxAge(shiroProperties.getCookieTimeout());
         return simpleCookie;
@@ -64,7 +63,7 @@ public class ShiroConfig {
 
     @Bean
     public CookieRememberMeManager rememberMeManager(){
-        ShiroProperties shiroProperties = blogProperties.getShiroProperties();
+        ShiroProperties shiroProperties = blogProperties.getShiro();
         CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
         cookieRememberMeManager.setCookie(rememberMeCookie());
         cookieRememberMeManager.setCipherKey(Base64.decode(shiroProperties.getCipherKey()));
@@ -86,7 +85,8 @@ public class ShiroConfig {
         AuthSessionManager sessionManager = new AuthSessionManager();
         Collection<SessionListener> sessionListeners = new ArrayList<>();
         sessionListeners.add(new ShiroSessionListener());
-        sessionManager.setGlobalSessionTimeout(blogProperties.getShiroProperties().getSessionTimeout()*1000L);
+        System.out.println(blogProperties.getShiro());
+        sessionManager.setGlobalSessionTimeout(blogProperties.getShiro().getSessionTimeout()*1000L);
         sessionManager.setSessionListeners(sessionListeners);
         sessionManager.setSessionDAO(sessionDAO());
         return sessionManager;

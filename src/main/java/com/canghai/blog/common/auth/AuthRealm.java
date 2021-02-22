@@ -2,7 +2,6 @@ package com.canghai.blog.common.auth;
 
 import com.canghai.blog.biz.entity.User;
 import com.canghai.blog.biz.service.UserService;
-import com.canghai.blog.common.constants.CommonConstant;
 import com.canghai.blog.common.constants.CommonEnum;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
