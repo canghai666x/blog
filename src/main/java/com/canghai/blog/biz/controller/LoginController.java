@@ -2,6 +2,7 @@ package com.canghai.blog.biz.controller;
 
 import com.canghai.blog.biz.entity.LoginLog;
 import com.canghai.blog.biz.entity.User;
+import com.canghai.blog.biz.entity.UserLogin;
 import com.canghai.blog.biz.service.LoginLogService;
 import com.canghai.blog.biz.service.UserService;
 import com.canghai.blog.common.common.BaseController;
@@ -23,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
 @RestController
+@RequestMapping(CommonConstant.BASE_API)
 public class LoginController extends BaseController {
 
     @Autowired
@@ -35,10 +37,10 @@ public class LoginController extends BaseController {
     private LoginLogService loginLogService;
 
     @PostMapping("/login")
-    public GeneralResponse login(@RequestBody String username,String password){
+    public GeneralResponse login(@RequestBody UserLogin userLogin){
         Subject subject=getSubject();
-        String excyptPassword = md5Util.encryptPassword(password);
-        UsernamePasswordToken token = new UsernamePasswordToken(username,password);
+        String encryptPassword = md5Util.encryptPassword(userLogin.getPassword());
+        UsernamePasswordToken token = new UsernamePasswordToken(userLogin.getUsername(), encryptPassword);
         try {
             subject.login(token);
             HttpServletRequest request = HttpContextUtil.getHttpServletRequest();

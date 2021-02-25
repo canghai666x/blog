@@ -29,7 +29,7 @@ public class AuthRealm extends AuthorizingRealm {
         if (user==null){
             throw new AuthenticationException(CommonEnum.LOGIN_ERROR.getMsg());
         }
-        return new SimpleAuthenticationInfo(username,password,getName());
+        return new SimpleAuthenticationInfo(user,password,getName());
     }
 
     @Override
