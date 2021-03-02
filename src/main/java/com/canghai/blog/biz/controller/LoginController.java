@@ -36,6 +36,7 @@ public class LoginController extends BaseController {
     @Autowired
     private LoginLogService loginLogService;
 
+
     @PostMapping("/login")
     public GeneralResponse login(@RequestBody UserLogin userLogin){
         Subject subject=getSubject();
